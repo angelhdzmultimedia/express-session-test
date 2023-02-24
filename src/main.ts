@@ -23,21 +23,39 @@ declare module 'express-session' {
 
 router.get('/count/reset', (req: Request, res: Response) => {
   req.session.count = 1
-  return res.send(`Count: ${req.session.count}`)
+  return res.send(`
+  Count: ${req.session.count}
+  
+  /api/count
+  /api/count/add
+  /api/count/reset
+  `)
 })
 
 router.get('/count/add', (req: Request, res: Response) => {
   if (!req.session.count) {
     req.session.count = 1
   }
-  return res.send(`Count: ${++req.session.count}`)
+  return res.send(`
+  Count: ${++req.session.count}
+  
+  /api/count
+  /api/count/add
+  /api/count/reset
+  `)
 })
 
 router.get('/count', (req: Request, res: Response) => {
   if (!req.session.count) {
     req.session.count = 1
   }
-  return res.send(`Count: ${req.session.count}`)
+  return res.send(`
+  Count: ${req.session.count}
+  
+  /api/count
+  /api/count/add
+  /api/count/reset
+  `)
 })
 
 app.use('/api', router)
