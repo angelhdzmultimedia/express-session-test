@@ -21,41 +21,41 @@ declare module 'express-session' {
   }
 }
 
+function writeRequest(count: number): string {
+  return `
+  <div style="display: flex; flex-direction: column;">
+  <span>Count: ${count}</span>
+  <span></span>
+  <a href="/api/count">/api/count</span>
+  <a href="/api/count/add">/api/count/add</span>
+  <a href="/api/count/reset">/api/count/reset</span>
+  </div>
+  `
+}
+
 router.get('/count/reset', (req: Request, res: Response) => {
   req.session.count = 1
-  return res.send(`
-  Count: ${req.session.count}
-  
-  /api/count
-  /api/count/add
-  /api/count/reset
-  `)
+  const count: number = req.session.count
+
+  return res.send(writeRequest(count))
 })
 
 router.get('/count/add', (req: Request, res: Response) => {
   if (!req.session.count) {
     req.session.count = 1
   }
-  return res.send(`
-  Count: ${++req.session.count}
-  
-  /api/count
-  /api/count/add
-  /api/count/reset
-  `)
+  const count: number = ++req.session.count
+
+  return res.send(writeRequest(count))
 })
 
 router.get('/count', (req: Request, res: Response) => {
   if (!req.session.count) {
     req.session.count = 1
   }
-  return res.send(`
-  Count: ${req.session.count}
-  
-  /api/count
-  /api/count/add
-  /api/count/reset
-  `)
+  const count: number = req.session.count
+
+  return res.send(writeRequest(count))
 })
 
 app.use('/api', router)
